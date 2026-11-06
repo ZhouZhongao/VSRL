@@ -1,0 +1,881 @@
+2026-11-06 16:00:41,033 IRRA INFO: Using 1 GPUs
+2026-11-06 16:00:41,033 IRRA INFO: Namespace(local_rank=0
+ name='baseline'
+ output_dir='logs/MARS_Group/20261106_160041_baseline'
+ log_period=100
+ eval_period=1
+ val_dataset='val'
+ resume=False
+ resume_ckpt_file=''
+ pretrain_choice='ViT-B/16'
+ temperature=0.02
+ img_aug=False
+ cmt_depth=4
+ masked_token_rate=0.8
+ masked_token_unchanged_rate=0.1
+ lr_factor=5.0
+ MLM=False
+ loss_names='sdm+id'
+ mlm_loss_weight=1.0
+ id_loss_weight=1.0
+ img_size=(384
+ 128)
+ stride_size=16
+ text_length=77
+ vocab_size=49408
+ optimizer='Adam'
+ lr=5e-06
+ bias_lr_factor=2.0
+ momentum=0.9
+ weight_decay=4e-05
+ weight_decay_bias=0.0
+ alpha=0.9
+ beta=0.999
+ num_epoch=60
+ milestones=(20
+ 50)
+ gamma=0.1
+ warmup_factor=0.1
+ warmup_epochs=5
+ warmup_method='linear'
+ lrscheduler='cosine'
+ target_lr=0
+ power=0.9
+ dataset_name='MARS_Group'
+ sampler='random'
+ num_instance=4
+ root_dir='/data1/zhouzhongao/datasets'
+ batch_size=32
+ test_batch_size=512
+ num_workers=8
+ training=True
+ view_loss_weight=1.0
+ ortho_loss_weight=0.1
+ mask_loss_weight=1.0
+ distributed=False)
+2026-11-06 16:00:41,037 IRRA.dataset INFO: Loaded 208 captions from /data1/zhouzhongao/datasets/mars1000_update/text_group/train_annotations_group.json
+2026-11-06 16:00:41,042 IRRA.dataset INFO: Loaded 500 captions from /data1/zhouzhongao/datasets/mars1000_update/text_group/test_annotations_group.json
+2026-11-06 16:00:41,054 IRRA.dataset INFO: Found 5381 RGB images in /data1/zhouzhongao/datasets/mars1000_update/train/RGB_topFinal_min4
+2026-11-06 16:00:41,068 IRRA.dataset INFO: Found 208 unique PIDs
+2026-11-06 16:00:41,157 IRRA.dataset INFO: Built 5381 valid annotations from 5381 RGB images
+2026-11-06 16:00:41,160 IRRA.dataset INFO: Found 1275 RGB images in /data1/zhouzhongao/datasets/mars1000_update/test/RGB_topFinal_min4
+2026-11-06 16:00:41,163 IRRA.dataset INFO: Found 73 unique PIDs
+2026-11-06 16:00:41,182 IRRA.dataset INFO: Built 1275 valid annotations from 1275 RGB images
+2026-11-06 16:00:41,207 IRRA.dataset INFO: => MARSLITE (MARS_Text) Three-Modal Images and Captions are loaded
+2026-11-06 16:00:41,207 IRRA.dataset INFO: MARS_Text_Group Dataset statistics:
+2026-11-06 16:00:41,208 IRRA.dataset INFO: 
++--------+-----+--------+----------+
+| subset | ids | images | captions |
++--------+-----+--------+----------+
+| train  | 208 |  5381  |   5381   |
+|  test  |  73 |  1275  |   438    |
++--------+-----+--------+----------+
+2026-11-06 16:00:41,335 IRRA.dataset INFO: using random sampler
+2026-11-06 16:00:43,169 IRRA.model INFO: Load pretrained ViT-B/16 CLIP model with model config: {'embed_dim': 512, 'image_resolution': (384, 128), 'vision_layers': 12, 'vision_width': 768, 'vision_patch_size': 16, 'context_length': 77, 'vocab_size': 49408, 'transformer_width': 512, 'transformer_heads': 8, 'transformer_layers': 12, 'stride_size': 16}
+2026-11-06 16:00:47,131 IRRA INFO: Total params: 166M
+2026-11-06 16:00:47,486 IRRA.train INFO: start training
+2026-11-06 16:01:42,435 IRRA.train INFO: Epoch[1] Iteration[100/169], loss: 38.1003, sdm_loss: 28.5168, itc_loss: 2.0129, id_loss: 5.3352, view_loss: 2.0609, ortho_loss: 0.1745, img_acc: 0.0056, txt_acc: 0.0150, Base Lr: 5.00e-07
+2026-11-06 16:02:20,466 IRRA.train INFO: Epoch 1 done. Time per batch: 0.550[s] Speed: 58.2[samples/s]
+2026-11-06 16:02:20,466 IRRA.train INFO: Validation Results - Epoch: 1
+2026-11-06 16:02:20,468 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:02:20,468 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:02:26,521 IRRA.eval INFO: 
++------+-------+--------+--------+-------+-------+
+| task |   R1  |   R5   |  R10   |  mAP  |  mINP |
++------+-------+--------+--------+-------+-------+
+| t2i  | 9.132 | 23.516 | 35.845 | 4.904 | 1.746 |
++------+-------+--------+--------+-------+-------+
+2026-11-06 16:02:26,521 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:02:26,521 IRRA.multimodal_eval INFO: MM:    R1=9.132, R5=23.516, R10=35.845, mAP=4.904, mINP=1.746
+2026-11-06 16:02:28,403 IRRA.train INFO: New best model saved! Avg R1: 9.132
+2026-11-06 16:02:28,403 IRRA.train INFO: MM:  R1=9.132, R5=23.516, R10=35.845, mAP=4.904, mINP=1.746
+2026-11-06 16:03:26,276 IRRA.train INFO: Epoch[2] Iteration[100/169], loss: 35.4313, sdm_loss: 27.7485, itc_loss: 0.1717, id_loss: 5.3237, view_loss: 2.0409, ortho_loss: 0.1464, img_acc: 0.0097, txt_acc: 0.0662, Base Lr: 1.40e-06
+2026-11-06 16:04:02,765 IRRA.train INFO: Epoch 2 done. Time per batch: 0.558[s] Speed: 57.3[samples/s]
+2026-11-06 16:04:02,766 IRRA.train INFO: Validation Results - Epoch: 2
+2026-11-06 16:04:02,767 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:04:02,767 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:04:08,834 IRRA.eval INFO: 
++------+--------+--------+--------+-------+-------+
+| task |   R1   |   R5   |  R10   |  mAP  |  mINP |
++------+--------+--------+--------+-------+-------+
+| t2i  | 14.840 | 35.616 | 50.685 | 9.810 | 3.535 |
++------+--------+--------+--------+-------+-------+
+2026-11-06 16:04:08,834 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:04:08,834 IRRA.multimodal_eval INFO: MM:    R1=14.840, R5=35.616, R10=50.685, mAP=9.810, mINP=3.535
+2026-11-06 16:04:15,500 IRRA.train INFO: New best model saved! Avg R1: 14.840
+2026-11-06 16:04:15,500 IRRA.train INFO: MM:  R1=14.840, R5=35.616, R10=50.685, mAP=9.810, mINP=3.535
+2026-11-06 16:05:13,673 IRRA.train INFO: Epoch[3] Iteration[100/169], loss: 30.6801, sdm_loss: 23.2521, itc_loss: 0.0637, id_loss: 5.3026, view_loss: 1.9962, ortho_loss: 0.0653, img_acc: 0.0697, txt_acc: 0.2216, Base Lr: 2.30e-06
+2026-11-06 16:05:50,542 IRRA.train INFO: Epoch 3 done. Time per batch: 0.562[s] Speed: 56.9[samples/s]
+2026-11-06 16:05:50,542 IRRA.train INFO: Validation Results - Epoch: 3
+2026-11-06 16:05:50,543 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:05:50,544 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:05:56,624 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 24.886 | 47.032 | 59.817 | 17.889 | 5.324 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:05:56,625 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:05:56,625 IRRA.multimodal_eval INFO: MM:    R1=24.886, R5=47.032, R10=59.817, mAP=17.889, mINP=5.324
+2026-11-06 16:06:03,424 IRRA.train INFO: New best model saved! Avg R1: 24.886
+2026-11-06 16:06:03,425 IRRA.train INFO: MM:  R1=24.886, R5=47.032, R10=59.817, mAP=17.889, mINP=5.324
+2026-11-06 16:07:01,946 IRRA.train INFO: Epoch[4] Iteration[100/169], loss: 24.2915, sdm_loss: 17.0192, itc_loss: 0.0466, id_loss: 5.2713, view_loss: 1.9202, ortho_loss: 0.0341, img_acc: 0.1919, txt_acc: 0.3363, Base Lr: 3.20e-06
+2026-11-06 16:07:38,592 IRRA.train INFO: Epoch 4 done. Time per batch: 0.563[s] Speed: 56.8[samples/s]
+2026-11-06 16:07:38,592 IRRA.train INFO: Validation Results - Epoch: 4
+2026-11-06 16:07:38,594 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:07:38,594 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:07:44,558 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.397 | 50.000 | 61.872 | 20.307 | 6.073 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:07:44,559 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:07:44,559 IRRA.multimodal_eval INFO: MM:    R1=27.397, R5=50.000, R10=61.872, mAP=20.307, mINP=6.073
+2026-11-06 16:07:49,628 IRRA.train INFO: New best model saved! Avg R1: 27.397
+2026-11-06 16:07:49,629 IRRA.train INFO: MM:  R1=27.397, R5=50.000, R10=61.872, mAP=20.307, mINP=6.073
+2026-11-06 16:08:47,868 IRRA.train INFO: Epoch[5] Iteration[100/169], loss: 20.9555, sdm_loss: 13.8415, itc_loss: 0.0291, id_loss: 5.2276, view_loss: 1.8286, ortho_loss: 0.0287, img_acc: 0.2797, txt_acc: 0.3953, Base Lr: 4.10e-06
+2026-11-06 16:09:24,283 IRRA.train INFO: Epoch 5 done. Time per batch: 0.560[s] Speed: 57.1[samples/s]
+2026-11-06 16:09:24,283 IRRA.train INFO: Validation Results - Epoch: 5
+2026-11-06 16:09:24,284 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:09:24,284 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:09:30,093 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.397 | 49.087 | 59.817 | 20.292 | 6.572 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:09:30,093 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:09:30,093 IRRA.multimodal_eval INFO: MM:    R1=27.397, R5=49.087, R10=59.817, mAP=20.292, mINP=6.572
+2026-11-06 16:10:27,543 IRRA.train INFO: Epoch[6] Iteration[100/169], loss: 18.3378, sdm_loss: 11.3673, itc_loss: 0.0285, id_loss: 5.1765, view_loss: 1.7431, ortho_loss: 0.0223, img_acc: 0.3469, txt_acc: 0.4541, Base Lr: 5.00e-06
+2026-11-06 16:11:05,905 IRRA.train INFO: Epoch 6 done. Time per batch: 0.564[s] Speed: 56.7[samples/s]
+2026-11-06 16:11:05,906 IRRA.train INFO: Validation Results - Epoch: 6
+2026-11-06 16:11:05,907 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:11:05,908 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:11:11,657 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 30.822 | 53.196 | 64.612 | 21.884 | 6.999 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:11:11,658 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:11:11,658 IRRA.multimodal_eval INFO: MM:    R1=30.822, R5=53.196, R10=64.612, mAP=21.884, mINP=6.999
+2026-11-06 16:11:18,214 IRRA.train INFO: New best model saved! Avg R1: 30.822
+2026-11-06 16:11:18,217 IRRA.train INFO: MM:  R1=30.822, R5=53.196, R10=64.612, mAP=21.884, mINP=6.999
+2026-11-06 16:12:15,212 IRRA.train INFO: Epoch[7] Iteration[100/169], loss: 16.2708, sdm_loss: 9.4360, itc_loss: 0.0220, id_loss: 5.1196, view_loss: 1.6737, ortho_loss: 0.0195, img_acc: 0.4256, txt_acc: 0.4744, Base Lr: 5.00e-06
+2026-11-06 16:12:53,217 IRRA.train INFO: Epoch 7 done. Time per batch: 0.562[s] Speed: 56.9[samples/s]
+2026-11-06 16:12:53,217 IRRA.train INFO: Validation Results - Epoch: 7
+2026-11-06 16:12:53,218 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:12:53,218 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:12:58,885 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.626 | 54.795 | 66.667 | 21.339 | 6.723 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:12:58,886 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:12:58,886 IRRA.multimodal_eval INFO: MM:    R1=27.626, R5=54.795, R10=66.667, mAP=21.339, mINP=6.723
+2026-11-06 16:13:55,929 IRRA.train INFO: Epoch[8] Iteration[100/169], loss: 14.5601, sdm_loss: 7.8270, itc_loss: 0.0157, id_loss: 5.0601, view_loss: 1.6388, ortho_loss: 0.0186, img_acc: 0.4656, txt_acc: 0.5050, Base Lr: 4.98e-06
+2026-11-06 16:14:34,458 IRRA.train INFO: Epoch 8 done. Time per batch: 0.563[s] Speed: 56.8[samples/s]
+2026-11-06 16:14:34,458 IRRA.train INFO: Validation Results - Epoch: 8
+2026-11-06 16:14:34,460 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:14:34,460 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:14:40,377 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 28.995 | 53.653 | 63.242 | 22.005 | 6.736 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:14:40,378 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:14:40,378 IRRA.multimodal_eval INFO: MM:    R1=28.995, R5=53.653, R10=63.242, mAP=22.005, mINP=6.736
+2026-11-06 16:15:35,175 IRRA.train INFO: Epoch[9] Iteration[100/169], loss: 13.4146, sdm_loss: 6.7585, itc_loss: 0.0172, id_loss: 5.0040, view_loss: 1.6162, ortho_loss: 0.0189, img_acc: 0.5122, txt_acc: 0.5281, Base Lr: 4.96e-06
+2026-11-06 16:16:10,745 IRRA.train INFO: Epoch 9 done. Time per batch: 0.533[s] Speed: 60.1[samples/s]
+2026-11-06 16:16:10,745 IRRA.train INFO: Validation Results - Epoch: 9
+2026-11-06 16:16:10,746 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:16:10,747 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:16:17,765 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 29.909 | 52.740 | 64.612 | 22.622 | 6.849 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:16:17,766 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:16:17,766 IRRA.multimodal_eval INFO: MM:    R1=29.909, R5=52.740, R10=64.612, mAP=22.622, mINP=6.849
+2026-11-06 16:17:11,044 IRRA.train INFO: Epoch[10] Iteration[100/169], loss: 12.1702, sdm_loss: 5.6023, itc_loss: 0.0109, id_loss: 4.9511, view_loss: 1.5869, ortho_loss: 0.0189, img_acc: 0.5297, txt_acc: 0.5469, Base Lr: 4.94e-06
+2026-11-06 16:17:46,193 IRRA.train INFO: Epoch 10 done. Time per batch: 0.521[s] Speed: 61.4[samples/s]
+2026-11-06 16:17:46,193 IRRA.train INFO: Validation Results - Epoch: 10
+2026-11-06 16:17:46,194 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:17:46,194 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:17:51,687 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 28.311 | 51.370 | 60.502 | 22.006 | 7.061 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:17:51,687 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:17:51,687 IRRA.multimodal_eval INFO: MM:    R1=28.311, R5=51.370, R10=60.502, mAP=22.006, mINP=7.061
+2026-11-06 16:18:45,120 IRRA.train INFO: Epoch[11] Iteration[100/169], loss: 11.2133, sdm_loss: 4.7230, itc_loss: 0.0115, id_loss: 4.8887, view_loss: 1.5713, ortho_loss: 0.0189, img_acc: 0.5506, txt_acc: 0.5691, Base Lr: 4.90e-06
+2026-11-06 16:19:20,088 IRRA.train INFO: Epoch 11 done. Time per batch: 0.521[s] Speed: 61.4[samples/s]
+2026-11-06 16:19:20,089 IRRA.train INFO: Validation Results - Epoch: 11
+2026-11-06 16:19:20,090 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:19:20,090 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:19:25,610 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.169 | 50.228 | 59.589 | 21.693 | 6.897 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:19:25,610 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:19:25,610 IRRA.multimodal_eval INFO: MM:    R1=27.169, R5=50.228, R10=59.589, mAP=21.693, mINP=6.897
+2026-11-06 16:20:19,243 IRRA.train INFO: Epoch[12] Iteration[100/169], loss: 10.7301, sdm_loss: 4.3050, itc_loss: 0.0086, id_loss: 4.8322, view_loss: 1.5659, ortho_loss: 0.0185, img_acc: 0.5791, txt_acc: 0.5759, Base Lr: 4.85e-06
+2026-11-06 16:20:54,533 IRRA.train INFO: Epoch 12 done. Time per batch: 0.524[s] Speed: 61.1[samples/s]
+2026-11-06 16:20:54,533 IRRA.train INFO: Validation Results - Epoch: 12
+2026-11-06 16:20:54,534 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:20:54,535 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:21:00,108 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 26.712 | 50.685 | 64.155 | 21.054 | 7.001 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:21:00,108 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:21:00,108 IRRA.multimodal_eval INFO: MM:    R1=26.712, R5=50.685, R10=64.155, mAP=21.054, mINP=7.001
+2026-11-06 16:21:54,187 IRRA.train INFO: Epoch[13] Iteration[100/169], loss: 10.3427, sdm_loss: 4.0529, itc_loss: 0.0090, id_loss: 4.7884, view_loss: 1.4681, ortho_loss: 0.0243, img_acc: 0.5734, txt_acc: 0.5750, Base Lr: 4.80e-06
+2026-11-06 16:22:29,993 IRRA.train INFO: Epoch 13 done. Time per batch: 0.530[s] Speed: 60.4[samples/s]
+2026-11-06 16:22:29,994 IRRA.train INFO: Validation Results - Epoch: 13
+2026-11-06 16:22:29,995 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:22:29,995 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:22:36,139 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 25.114 | 50.913 | 63.014 | 21.487 | 7.402 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:22:36,140 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:22:36,140 IRRA.multimodal_eval INFO: MM:    R1=25.114, R5=50.913, R10=63.014, mAP=21.487, mINP=7.402
+2026-11-06 16:23:33,872 IRRA.train INFO: Epoch[14] Iteration[100/169], loss: 9.1639, sdm_loss: 3.1857, itc_loss: 0.0049, id_loss: 4.7230, view_loss: 1.2181, ortho_loss: 0.0322, img_acc: 0.5987, txt_acc: 0.5750, Base Lr: 4.74e-06
+2026-11-06 16:24:10,997 IRRA.train INFO: Epoch 14 done. Time per batch: 0.559[s] Speed: 57.3[samples/s]
+2026-11-06 16:24:10,998 IRRA.train INFO: Validation Results - Epoch: 14
+2026-11-06 16:24:11,000 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:24:11,001 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:24:17,110 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 25.571 | 48.174 | 60.959 | 20.770 | 7.515 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:24:17,110 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:24:17,110 IRRA.multimodal_eval INFO: MM:    R1=25.571, R5=48.174, R10=60.959, mAP=20.770, mINP=7.515
+2026-11-06 16:25:14,637 IRRA.train INFO: Epoch[15] Iteration[100/169], loss: 8.3936, sdm_loss: 2.8434, itc_loss: 0.0050, id_loss: 4.6744, view_loss: 0.8336, ortho_loss: 0.0372, img_acc: 0.5972, txt_acc: 0.5850, Base Lr: 4.68e-06
+2026-11-06 16:25:51,403 IRRA.train INFO: Epoch 15 done. Time per batch: 0.556[s] Speed: 57.6[samples/s]
+2026-11-06 16:25:51,404 IRRA.train INFO: Validation Results - Epoch: 15
+2026-11-06 16:25:51,405 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:25:51,405 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:25:57,566 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.626 | 49.772 | 61.872 | 20.727 | 7.150 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:25:57,567 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:25:57,567 IRRA.multimodal_eval INFO: MM:    R1=27.626, R5=49.772, R10=61.872, mAP=20.727, mINP=7.150
+2026-11-06 16:26:55,569 IRRA.train INFO: Epoch[16] Iteration[100/169], loss: 7.7332, sdm_loss: 2.5216, itc_loss: 0.0077, id_loss: 4.6202, view_loss: 0.5501, ortho_loss: 0.0336, img_acc: 0.6062, txt_acc: 0.6019, Base Lr: 4.60e-06
+2026-11-06 16:27:31,979 IRRA.train INFO: Epoch 16 done. Time per batch: 0.556[s] Speed: 57.5[samples/s]
+2026-11-06 16:27:31,979 IRRA.train INFO: Validation Results - Epoch: 16
+2026-11-06 16:27:31,981 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:27:31,981 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:27:37,694 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.169 | 49.087 | 63.470 | 21.038 | 7.606 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:27:37,695 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:27:37,695 IRRA.multimodal_eval INFO: MM:    R1=27.169, R5=49.087, R10=63.470, mAP=21.038, mINP=7.606
+2026-11-06 16:28:36,536 IRRA.train INFO: Epoch[17] Iteration[100/169], loss: 7.0613, sdm_loss: 2.0832, itc_loss: 0.0046, id_loss: 4.5606, view_loss: 0.3830, ortho_loss: 0.0300, img_acc: 0.6059, txt_acc: 0.6137, Base Lr: 4.52e-06
+2026-11-06 16:29:13,534 IRRA.train INFO: Epoch 17 done. Time per batch: 0.565[s] Speed: 56.7[samples/s]
+2026-11-06 16:29:13,534 IRRA.train INFO: Validation Results - Epoch: 17
+2026-11-06 16:29:13,536 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:29:13,536 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:29:19,120 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 26.484 | 50.913 | 63.242 | 21.411 | 7.482 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:29:19,120 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:29:19,120 IRRA.multimodal_eval INFO: MM:    R1=26.484, R5=50.913, R10=63.242, mAP=21.411, mINP=7.482
+2026-11-06 16:30:16,496 IRRA.train INFO: Epoch[18] Iteration[100/169], loss: 6.9335, sdm_loss: 2.0905, itc_loss: 0.0078, id_loss: 4.5248, view_loss: 0.2835, ortho_loss: 0.0269, img_acc: 0.6106, txt_acc: 0.6162, Base Lr: 4.44e-06
+2026-11-06 16:30:54,446 IRRA.train INFO: Epoch 18 done. Time per batch: 0.562[s] Speed: 57.0[samples/s]
+2026-11-06 16:30:54,446 IRRA.train INFO: Validation Results - Epoch: 18
+2026-11-06 16:30:54,448 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:30:54,448 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:31:00,000 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.854 | 53.653 | 63.470 | 21.542 | 7.555 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:31:00,001 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:31:00,001 IRRA.multimodal_eval INFO: MM:    R1=27.854, R5=53.653, R10=63.470, mAP=21.542, mINP=7.555
+2026-11-06 16:31:56,292 IRRA.train INFO: Epoch[19] Iteration[100/169], loss: 6.3759, sdm_loss: 1.6358, itc_loss: 0.0101, id_loss: 4.4723, view_loss: 0.2331, ortho_loss: 0.0246, img_acc: 0.6287, txt_acc: 0.6187, Base Lr: 4.34e-06
+2026-11-06 16:32:33,467 IRRA.train INFO: Epoch 19 done. Time per batch: 0.551[s] Speed: 58.1[samples/s]
+2026-11-06 16:32:33,468 IRRA.train INFO: Validation Results - Epoch: 19
+2026-11-06 16:32:33,469 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:32:33,469 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:32:38,967 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 28.539 | 54.338 | 62.100 | 21.904 | 7.492 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:32:38,967 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:32:38,967 IRRA.multimodal_eval INFO: MM:    R1=28.539, R5=54.338, R10=62.100, mAP=21.904, mINP=7.492
+2026-11-06 16:33:35,613 IRRA.train INFO: Epoch[20] Iteration[100/169], loss: 6.3252, sdm_loss: 1.6610, itc_loss: 0.0072, id_loss: 4.4195, view_loss: 0.2127, ortho_loss: 0.0248, img_acc: 0.6316, txt_acc: 0.6322, Base Lr: 4.24e-06
+2026-11-06 16:34:13,208 IRRA.train INFO: Epoch 20 done. Time per batch: 0.556[s] Speed: 57.6[samples/s]
+2026-11-06 16:34:13,208 IRRA.train INFO: Validation Results - Epoch: 20
+2026-11-06 16:34:13,210 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:34:13,210 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:34:18,668 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 27.854 | 53.653 | 63.927 | 22.088 | 7.581 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:34:18,668 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:34:18,668 IRRA.multimodal_eval INFO: MM:    R1=27.854, R5=53.653, R10=63.927, mAP=22.088, mINP=7.581
+2026-11-06 16:35:15,452 IRRA.train INFO: Epoch[21] Iteration[100/169], loss: 6.0074, sdm_loss: 1.4020, itc_loss: 0.0088, id_loss: 4.3828, view_loss: 0.1899, ortho_loss: 0.0240, img_acc: 0.6312, txt_acc: 0.6256, Base Lr: 4.14e-06
+2026-11-06 16:35:53,035 IRRA.train INFO: Epoch 21 done. Time per batch: 0.556[s] Speed: 57.5[samples/s]
+2026-11-06 16:35:53,035 IRRA.train INFO: Validation Results - Epoch: 21
+2026-11-06 16:35:53,036 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:35:53,036 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:35:58,922 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 29.909 | 50.000 | 65.068 | 21.648 | 7.541 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:35:58,922 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:35:58,922 IRRA.multimodal_eval INFO: MM:    R1=29.909, R5=50.000, R10=65.068, mAP=21.648, mINP=7.541
+2026-11-06 16:36:54,500 IRRA.train INFO: Epoch[22] Iteration[100/169], loss: 5.7555, sdm_loss: 1.2220, itc_loss: 0.0069, id_loss: 4.3379, view_loss: 0.1669, ortho_loss: 0.0218, img_acc: 0.6441, txt_acc: 0.6616, Base Lr: 4.03e-06
+2026-11-06 16:37:31,809 IRRA.train INFO: Epoch 22 done. Time per batch: 0.548[s] Speed: 58.4[samples/s]
+2026-11-06 16:37:31,809 IRRA.train INFO: Validation Results - Epoch: 22
+2026-11-06 16:37:31,811 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:37:31,811 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:37:38,646 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 28.311 | 55.936 | 66.210 | 21.778 | 7.365 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:37:38,646 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:37:38,646 IRRA.multimodal_eval INFO: MM:    R1=28.311, R5=55.936, R10=66.210, mAP=21.778, mINP=7.365
+2026-11-06 16:38:34,102 IRRA.train INFO: Epoch[23] Iteration[100/169], loss: 5.6281, sdm_loss: 1.1159, itc_loss: 0.0038, id_loss: 4.3240, view_loss: 0.1627, ortho_loss: 0.0217, img_acc: 0.6381, txt_acc: 0.6591, Base Lr: 3.91e-06
+2026-11-06 16:39:11,901 IRRA.train INFO: Epoch 23 done. Time per batch: 0.549[s] Speed: 58.3[samples/s]
+2026-11-06 16:39:11,901 IRRA.train INFO: Validation Results - Epoch: 23
+2026-11-06 16:39:11,903 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:39:11,903 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:39:18,186 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 29.680 | 55.251 | 65.753 | 22.803 | 7.594 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:39:18,187 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:39:18,187 IRRA.multimodal_eval INFO: MM:    R1=29.680, R5=55.251, R10=65.753, mAP=22.803, mINP=7.594
+2026-11-06 16:40:14,349 IRRA.train INFO: Epoch[24] Iteration[100/169], loss: 5.5300, sdm_loss: 1.0719, itc_loss: 0.0036, id_loss: 4.2849, view_loss: 0.1493, ortho_loss: 0.0204, img_acc: 0.6447, txt_acc: 0.6706, Base Lr: 3.79e-06
+2026-11-06 16:40:52,143 IRRA.train INFO: Epoch 24 done. Time per batch: 0.554[s] Speed: 57.8[samples/s]
+2026-11-06 16:40:52,144 IRRA.train INFO: Validation Results - Epoch: 24
+2026-11-06 16:40:52,145 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:40:52,145 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:40:58,254 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 30.365 | 54.338 | 66.895 | 22.601 | 7.678 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:40:58,255 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:40:58,255 IRRA.multimodal_eval INFO: MM:    R1=30.365, R5=54.338, R10=66.895, mAP=22.601, mINP=7.678
+2026-11-06 16:41:54,488 IRRA.train INFO: Epoch[25] Iteration[100/169], loss: 5.2545, sdm_loss: 0.8303, itc_loss: 0.0052, id_loss: 4.2574, view_loss: 0.1410, ortho_loss: 0.0207, img_acc: 0.6484, txt_acc: 0.6700, Base Lr: 3.67e-06
+2026-11-06 16:42:32,403 IRRA.train INFO: Epoch 25 done. Time per batch: 0.554[s] Speed: 57.7[samples/s]
+2026-11-06 16:42:32,404 IRRA.train INFO: Validation Results - Epoch: 25
+2026-11-06 16:42:32,407 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:42:32,407 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:42:38,465 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 29.909 | 54.110 | 66.438 | 22.729 | 7.793 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:42:38,466 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:42:38,466 IRRA.multimodal_eval INFO: MM:    R1=29.909, R5=54.110, R10=66.438, mAP=22.729, mINP=7.793
+2026-11-06 16:43:34,054 IRRA.train INFO: Epoch[26] Iteration[100/169], loss: 5.1929, sdm_loss: 0.7830, itc_loss: 0.0063, id_loss: 4.2472, view_loss: 0.1353, ortho_loss: 0.0211, img_acc: 0.6803, txt_acc: 0.6816, Base Lr: 3.54e-06
+2026-11-06 16:44:11,334 IRRA.train INFO: Epoch 26 done. Time per batch: 0.547[s] Speed: 58.5[samples/s]
+2026-11-06 16:44:11,334 IRRA.train INFO: Validation Results - Epoch: 26
+2026-11-06 16:44:11,336 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:44:11,336 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:44:17,321 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 32.192 | 56.621 | 66.438 | 22.639 | 8.079 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:44:17,321 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:44:17,321 IRRA.multimodal_eval INFO: MM:    R1=32.192, R5=56.621, R10=66.438, mAP=22.639, mINP=8.079
+2026-11-06 16:44:22,370 IRRA.train INFO: New best model saved! Avg R1: 32.192
+2026-11-06 16:44:22,371 IRRA.train INFO: MM:  R1=32.192, R5=56.621, R10=66.438, mAP=22.639, mINP=8.079
+2026-11-06 16:45:16,593 IRRA.train INFO: Epoch[27] Iteration[100/169], loss: 5.0756, sdm_loss: 0.7151, itc_loss: 0.0041, id_loss: 4.2092, view_loss: 0.1278, ortho_loss: 0.0195, img_acc: 0.6716, txt_acc: 0.6891, Base Lr: 3.41e-06
+2026-11-06 16:45:52,987 IRRA.train INFO: Epoch 27 done. Time per batch: 0.536[s] Speed: 59.7[samples/s]
+2026-11-06 16:45:52,988 IRRA.train INFO: Validation Results - Epoch: 27
+2026-11-06 16:45:52,989 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:45:52,989 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:45:58,762 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 31.735 | 56.393 | 66.438 | 22.759 | 7.762 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:45:58,762 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:45:58,762 IRRA.multimodal_eval INFO: MM:    R1=31.735, R5=56.393, R10=66.438, mAP=22.759, mINP=7.762
+2026-11-06 16:46:53,754 IRRA.train INFO: Epoch[28] Iteration[100/169], loss: 5.0979, sdm_loss: 0.7458, itc_loss: 0.0038, id_loss: 4.2087, view_loss: 0.1208, ortho_loss: 0.0187, img_acc: 0.6712, txt_acc: 0.6787, Base Lr: 3.27e-06
+2026-11-06 16:47:31,521 IRRA.train INFO: Epoch 28 done. Time per batch: 0.547[s] Speed: 58.5[samples/s]
+2026-11-06 16:47:31,521 IRRA.train INFO: Validation Results - Epoch: 28
+2026-11-06 16:47:31,523 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:47:31,523 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:47:37,567 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 31.963 | 54.110 | 65.982 | 22.997 | 8.086 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:47:37,567 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:47:37,567 IRRA.multimodal_eval INFO: MM:    R1=31.963, R5=54.110, R10=65.982, mAP=22.997, mINP=8.086
+2026-11-06 16:48:32,215 IRRA.train INFO: Epoch[29] Iteration[100/169], loss: 4.9889, sdm_loss: 0.6672, itc_loss: 0.0039, id_loss: 4.1768, view_loss: 0.1212, ortho_loss: 0.0197, img_acc: 0.6734, txt_acc: 0.6909, Base Lr: 3.14e-06
+2026-11-06 16:49:09,282 IRRA.train INFO: Epoch 29 done. Time per batch: 0.540[s] Speed: 59.2[samples/s]
+2026-11-06 16:49:09,283 IRRA.train INFO: Validation Results - Epoch: 29
+2026-11-06 16:49:09,284 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:49:09,284 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:49:15,548 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 55.251 | 66.438 | 22.560 | 7.660 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:49:15,548 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:49:15,548 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=55.251, R10=66.438, mAP=22.560, mINP=7.660
+2026-11-06 16:49:20,351 IRRA.train INFO: New best model saved! Avg R1: 33.105
+2026-11-06 16:49:20,352 IRRA.train INFO: MM:  R1=33.105, R5=55.251, R10=66.438, mAP=22.560, mINP=7.660
+2026-11-06 16:50:14,391 IRRA.train INFO: Epoch[30] Iteration[100/169], loss: 5.0724, sdm_loss: 0.7545, itc_loss: 0.0046, id_loss: 4.1788, view_loss: 0.1155, ortho_loss: 0.0190, img_acc: 0.6716, txt_acc: 0.6947, Base Lr: 3.00e-06
+2026-11-06 16:50:51,348 IRRA.train INFO: Epoch 30 done. Time per batch: 0.538[s] Speed: 59.4[samples/s]
+2026-11-06 16:50:51,348 IRRA.train INFO: Validation Results - Epoch: 30
+2026-11-06 16:50:51,349 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:50:51,349 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:50:57,217 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 31.507 | 52.968 | 66.210 | 22.058 | 7.576 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:50:57,217 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:50:57,217 IRRA.multimodal_eval INFO: MM:    R1=31.507, R5=52.968, R10=66.210, mAP=22.058, mINP=7.576
+2026-11-06 16:51:52,544 IRRA.train INFO: Epoch[31] Iteration[100/169], loss: 4.8057, sdm_loss: 0.5236, itc_loss: 0.0036, id_loss: 4.1503, view_loss: 0.1098, ortho_loss: 0.0185, img_acc: 0.6778, txt_acc: 0.6941, Base Lr: 2.86e-06
+2026-11-06 16:52:29,149 IRRA.train INFO: Epoch 31 done. Time per batch: 0.542[s] Speed: 59.1[samples/s]
+2026-11-06 16:52:29,149 IRRA.train INFO: Validation Results - Epoch: 31
+2026-11-06 16:52:29,151 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:52:29,151 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:52:35,078 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 30.594 | 53.881 | 66.667 | 22.433 | 7.566 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:52:35,078 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:52:35,078 IRRA.multimodal_eval INFO: MM:    R1=30.594, R5=53.881, R10=66.667, mAP=22.433, mINP=7.566
+2026-11-06 16:53:29,320 IRRA.train INFO: Epoch[32] Iteration[100/169], loss: 4.8732, sdm_loss: 0.5906, itc_loss: 0.0035, id_loss: 4.1514, view_loss: 0.1090, ortho_loss: 0.0187, img_acc: 0.6844, txt_acc: 0.7050, Base Lr: 2.71e-06
+2026-11-06 16:54:06,223 IRRA.train INFO: Epoch 32 done. Time per batch: 0.537[s] Speed: 59.6[samples/s]
+2026-11-06 16:54:06,223 IRRA.train INFO: Validation Results - Epoch: 32
+2026-11-06 16:54:06,225 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:54:06,225 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:54:12,031 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 31.050 | 55.708 | 66.438 | 22.948 | 7.758 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:54:12,031 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:54:12,031 IRRA.multimodal_eval INFO: MM:    R1=31.050, R5=55.708, R10=66.438, mAP=22.948, mINP=7.758
+2026-11-06 16:55:06,557 IRRA.train INFO: Epoch[33] Iteration[100/169], loss: 4.7799, sdm_loss: 0.5194, itc_loss: 0.0032, id_loss: 4.1338, view_loss: 0.1049, ortho_loss: 0.0186, img_acc: 0.6953, txt_acc: 0.7088, Base Lr: 2.57e-06
+2026-11-06 16:55:43,421 IRRA.train INFO: Epoch 33 done. Time per batch: 0.538[s] Speed: 59.4[samples/s]
+2026-11-06 16:55:43,421 IRRA.train INFO: Validation Results - Epoch: 33
+2026-11-06 16:55:43,424 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:55:43,424 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:55:49,350 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 57.078 | 66.210 | 22.857 | 7.705 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:55:49,350 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:55:49,350 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=57.078, R10=66.210, mAP=22.857, mINP=7.705
+2026-11-06 16:55:54,413 IRRA.train INFO: New best model saved! Avg R1: 33.333
+2026-11-06 16:55:54,414 IRRA.train INFO: MM:  R1=33.333, R5=57.078, R10=66.210, mAP=22.857, mINP=7.705
+2026-11-06 16:56:49,264 IRRA.train INFO: Epoch[34] Iteration[100/169], loss: 4.7708, sdm_loss: 0.5266, itc_loss: 0.0032, id_loss: 4.1198, view_loss: 0.1030, ortho_loss: 0.0182, img_acc: 0.6884, txt_acc: 0.7138, Base Lr: 2.43e-06
+2026-11-06 16:57:25,430 IRRA.train INFO: Epoch 34 done. Time per batch: 0.539[s] Speed: 59.4[samples/s]
+2026-11-06 16:57:25,430 IRRA.train INFO: Validation Results - Epoch: 34
+2026-11-06 16:57:25,432 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:57:25,432 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:57:31,285 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 32.877 | 53.653 | 66.438 | 23.169 | 7.889 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:57:31,285 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:57:31,285 IRRA.multimodal_eval INFO: MM:    R1=32.877, R5=53.653, R10=66.438, mAP=23.169, mINP=7.889
+2026-11-06 16:58:27,226 IRRA.train INFO: Epoch[35] Iteration[100/169], loss: 4.7090, sdm_loss: 0.4659, itc_loss: 0.0046, id_loss: 4.1215, view_loss: 0.0988, ortho_loss: 0.0182, img_acc: 0.6922, txt_acc: 0.6997, Base Lr: 2.29e-06
+2026-11-06 16:59:03,364 IRRA.train INFO: Epoch 35 done. Time per batch: 0.542[s] Speed: 59.0[samples/s]
+2026-11-06 16:59:03,364 IRRA.train INFO: Validation Results - Epoch: 35
+2026-11-06 16:59:03,366 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 16:59:03,366 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 16:59:09,332 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 31.507 | 56.849 | 66.667 | 23.048 | 7.964 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 16:59:09,332 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 16:59:09,332 IRRA.multimodal_eval INFO: MM:    R1=31.507, R5=56.849, R10=66.667, mAP=23.048, mINP=7.964
+2026-11-06 17:00:05,069 IRRA.train INFO: Epoch[36] Iteration[100/169], loss: 4.6723, sdm_loss: 0.4475, itc_loss: 0.0042, id_loss: 4.1044, view_loss: 0.0977, ortho_loss: 0.0184, img_acc: 0.6991, txt_acc: 0.7197, Base Lr: 2.14e-06
+2026-11-06 17:00:41,980 IRRA.train INFO: Epoch 36 done. Time per batch: 0.546[s] Speed: 58.6[samples/s]
+2026-11-06 17:00:41,981 IRRA.train INFO: Validation Results - Epoch: 36
+2026-11-06 17:00:41,982 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:00:41,982 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:00:47,886 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 34.018 | 56.393 | 67.808 | 23.588 | 8.129 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:00:47,887 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:00:47,887 IRRA.multimodal_eval INFO: MM:    R1=34.018, R5=56.393, R10=67.808, mAP=23.588, mINP=8.129
+2026-11-06 17:00:52,706 IRRA.train INFO: New best model saved! Avg R1: 34.018
+2026-11-06 17:00:52,706 IRRA.train INFO: MM:  R1=34.018, R5=56.393, R10=67.808, mAP=23.588, mINP=8.129
+2026-11-06 17:01:48,066 IRRA.train INFO: Epoch[37] Iteration[100/169], loss: 4.7288, sdm_loss: 0.5010, itc_loss: 0.0029, id_loss: 4.1111, view_loss: 0.0958, ortho_loss: 0.0180, img_acc: 0.6944, txt_acc: 0.7047, Base Lr: 2.00e-06
+2026-11-06 17:02:24,566 IRRA.train INFO: Epoch 37 done. Time per batch: 0.544[s] Speed: 58.9[samples/s]
+2026-11-06 17:02:24,566 IRRA.train INFO: Validation Results - Epoch: 37
+2026-11-06 17:02:24,568 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:02:24,568 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:02:30,536 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.562 | 56.393 | 66.667 | 23.272 | 8.093 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:02:30,536 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:02:30,536 IRRA.multimodal_eval INFO: MM:    R1=33.562, R5=56.393, R10=66.667, mAP=23.272, mINP=8.093
+2026-11-06 17:03:26,021 IRRA.train INFO: Epoch[38] Iteration[100/169], loss: 4.6855, sdm_loss: 0.4694, itc_loss: 0.0032, id_loss: 4.0983, view_loss: 0.0969, ortho_loss: 0.0178, img_acc: 0.6991, txt_acc: 0.7403, Base Lr: 1.86e-06
+2026-11-06 17:04:02,125 IRRA.train INFO: Epoch 38 done. Time per batch: 0.539[s] Speed: 59.3[samples/s]
+2026-11-06 17:04:02,125 IRRA.train INFO: Validation Results - Epoch: 38
+2026-11-06 17:04:02,126 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:04:02,126 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:04:07,947 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.790 | 55.708 | 68.721 | 23.265 | 8.005 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:04:07,948 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:04:07,948 IRRA.multimodal_eval INFO: MM:    R1=33.790, R5=55.708, R10=68.721, mAP=23.265, mINP=8.005
+2026-11-06 17:05:03,698 IRRA.train INFO: Epoch[39] Iteration[100/169], loss: 4.7075, sdm_loss: 0.4908, itc_loss: 0.0038, id_loss: 4.1008, view_loss: 0.0943, ortho_loss: 0.0178, img_acc: 0.7031, txt_acc: 0.7266, Base Lr: 1.73e-06
+2026-11-06 17:05:40,798 IRRA.train INFO: Epoch 39 done. Time per batch: 0.547[s] Speed: 58.5[samples/s]
+2026-11-06 17:05:40,798 IRRA.train INFO: Validation Results - Epoch: 39
+2026-11-06 17:05:40,800 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:05:40,800 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:05:46,417 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 34.703 | 56.621 | 68.721 | 23.350 | 8.044 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:05:46,417 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:05:46,417 IRRA.multimodal_eval INFO: MM:    R1=34.703, R5=56.621, R10=68.721, mAP=23.350, mINP=8.044
+2026-11-06 17:05:51,011 IRRA.train INFO: New best model saved! Avg R1: 34.703
+2026-11-06 17:05:51,012 IRRA.train INFO: MM:  R1=34.703, R5=56.621, R10=68.721, mAP=23.350, mINP=8.044
+2026-11-06 17:06:46,766 IRRA.train INFO: Epoch[40] Iteration[100/169], loss: 4.5841, sdm_loss: 0.3850, itc_loss: 0.0034, id_loss: 4.0833, view_loss: 0.0946, ortho_loss: 0.0179, img_acc: 0.7034, txt_acc: 0.7259, Base Lr: 1.59e-06
+2026-11-06 17:07:23,737 IRRA.train INFO: Epoch 40 done. Time per batch: 0.549[s] Speed: 58.3[samples/s]
+2026-11-06 17:07:23,737 IRRA.train INFO: Validation Results - Epoch: 40
+2026-11-06 17:07:23,738 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:07:23,738 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:07:29,372 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 34.018 | 57.306 | 68.721 | 23.624 | 8.043 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:07:29,372 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:07:29,372 IRRA.multimodal_eval INFO: MM:    R1=34.018, R5=57.306, R10=68.721, mAP=23.624, mINP=8.043
+2026-11-06 17:08:25,927 IRRA.train INFO: Epoch[41] Iteration[100/169], loss: 4.5429, sdm_loss: 0.3445, itc_loss: 0.0026, id_loss: 4.0855, view_loss: 0.0928, ortho_loss: 0.0175, img_acc: 0.7031, txt_acc: 0.7237, Base Lr: 1.46e-06
+2026-11-06 17:09:04,265 IRRA.train INFO: Epoch 41 done. Time per batch: 0.559[s] Speed: 57.2[samples/s]
+2026-11-06 17:09:04,266 IRRA.train INFO: Validation Results - Epoch: 41
+2026-11-06 17:09:04,267 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:09:04,267 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:09:10,312 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 34.475 | 57.534 | 68.493 | 23.839 | 8.229 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:09:10,312 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:09:10,312 IRRA.multimodal_eval INFO: MM:    R1=34.475, R5=57.534, R10=68.493, mAP=23.839, mINP=8.229
+2026-11-06 17:10:06,549 IRRA.train INFO: Epoch[42] Iteration[100/169], loss: 4.5923, sdm_loss: 0.4038, itc_loss: 0.0023, id_loss: 4.0762, view_loss: 0.0925, ortho_loss: 0.0175, img_acc: 0.7003, txt_acc: 0.7312, Base Lr: 1.33e-06
+2026-11-06 17:10:44,502 IRRA.train INFO: Epoch 42 done. Time per batch: 0.555[s] Speed: 57.6[samples/s]
+2026-11-06 17:10:44,502 IRRA.train INFO: Validation Results - Epoch: 42
+2026-11-06 17:10:44,504 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:10:44,504 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:10:50,566 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 35.388 | 57.306 | 69.406 | 23.733 | 8.221 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:10:50,567 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:10:50,567 IRRA.multimodal_eval INFO: MM:    R1=35.388, R5=57.306, R10=69.406, mAP=23.733, mINP=8.221
+2026-11-06 17:10:55,632 IRRA.train INFO: New best model saved! Avg R1: 35.388
+2026-11-06 17:10:55,632 IRRA.train INFO: MM:  R1=35.388, R5=57.306, R10=69.406, mAP=23.733, mINP=8.221
+2026-11-06 17:11:51,542 IRRA.train INFO: Epoch[43] Iteration[100/169], loss: 4.6213, sdm_loss: 0.4323, itc_loss: 0.0017, id_loss: 4.0786, view_loss: 0.0910, ortho_loss: 0.0176, img_acc: 0.6975, txt_acc: 0.7219, Base Lr: 1.21e-06
+2026-11-06 17:12:30,203 IRRA.train INFO: Epoch 43 done. Time per batch: 0.560[s] Speed: 57.2[samples/s]
+2026-11-06 17:12:30,204 IRRA.train INFO: Validation Results - Epoch: 43
+2026-11-06 17:12:30,205 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:12:30,205 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:12:36,438 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.562 | 57.078 | 67.123 | 23.652 | 8.199 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:12:36,438 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:12:36,438 IRRA.multimodal_eval INFO: MM:    R1=33.562, R5=57.078, R10=67.123, mAP=23.652, mINP=8.199
+2026-11-06 17:13:32,045 IRRA.train INFO: Epoch[44] Iteration[100/169], loss: 4.5537, sdm_loss: 0.3636, itc_loss: 0.0023, id_loss: 4.0802, view_loss: 0.0902, ortho_loss: 0.0174, img_acc: 0.6884, txt_acc: 0.7237, Base Lr: 1.09e-06
+2026-11-06 17:14:09,197 IRRA.train INFO: Epoch 44 done. Time per batch: 0.546[s] Speed: 58.6[samples/s]
+2026-11-06 17:14:09,198 IRRA.train INFO: Validation Results - Epoch: 44
+2026-11-06 17:14:09,200 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:14:09,200 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:14:15,409 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 57.306 | 67.808 | 23.456 | 8.087 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:14:15,409 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:14:15,409 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=57.306, R10=67.808, mAP=23.456, mINP=8.087
+2026-11-06 17:15:11,377 IRRA.train INFO: Epoch[45] Iteration[100/169], loss: 4.5758, sdm_loss: 0.3559, itc_loss: 0.0048, id_loss: 4.1075, view_loss: 0.0901, ortho_loss: 0.0174, img_acc: 0.6931, txt_acc: 0.7188, Base Lr: 9.73e-07
+2026-11-06 17:15:48,954 IRRA.train INFO: Epoch 45 done. Time per batch: 0.551[s] Speed: 58.1[samples/s]
+2026-11-06 17:15:48,955 IRRA.train INFO: Validation Results - Epoch: 45
+2026-11-06 17:15:48,957 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:15:48,957 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:15:55,125 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 57.991 | 68.037 | 23.418 | 8.177 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:15:55,125 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:15:55,125 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=57.991, R10=68.037, mAP=23.418, mINP=8.177
+2026-11-06 17:16:50,862 IRRA.train INFO: Epoch[46] Iteration[100/169], loss: 4.5836, sdm_loss: 0.3944, itc_loss: 0.0030, id_loss: 4.0783, view_loss: 0.0903, ortho_loss: 0.0176, img_acc: 0.7091, txt_acc: 0.7303, Base Lr: 8.63e-07
+2026-11-06 17:17:29,068 IRRA.train INFO: Epoch 46 done. Time per batch: 0.553[s] Speed: 57.8[samples/s]
+2026-11-06 17:17:29,074 IRRA.train INFO: Validation Results - Epoch: 46
+2026-11-06 17:17:29,075 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:17:29,075 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:17:35,052 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.493 | 23.573 | 8.151 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:17:35,053 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:17:35,053 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.493, mAP=23.573, mINP=8.151
+2026-11-06 17:18:30,833 IRRA.train INFO: Epoch[47] Iteration[100/169], loss: 4.6168, sdm_loss: 0.4208, itc_loss: 0.0038, id_loss: 4.0848, view_loss: 0.0899, ortho_loss: 0.0174, img_acc: 0.6987, txt_acc: 0.7272, Base Lr: 7.58e-07
+2026-11-06 17:19:09,029 IRRA.train INFO: Epoch 47 done. Time per batch: 0.554[s] Speed: 57.8[samples/s]
+2026-11-06 17:19:09,029 IRRA.train INFO: Validation Results - Epoch: 47
+2026-11-06 17:19:09,032 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:19:09,032 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:19:15,046 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 57.991 | 68.037 | 23.564 | 8.110 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:19:15,046 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:19:15,046 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=57.991, R10=68.037, mAP=23.564, mINP=8.110
+2026-11-06 17:20:10,605 IRRA.train INFO: Epoch[48] Iteration[100/169], loss: 4.4980, sdm_loss: 0.3019, itc_loss: 0.0029, id_loss: 4.0862, view_loss: 0.0896, ortho_loss: 0.0175, img_acc: 0.7028, txt_acc: 0.7297, Base Lr: 6.58e-07
+2026-11-06 17:20:48,511 IRRA.train INFO: Epoch 48 done. Time per batch: 0.551[s] Speed: 58.1[samples/s]
+2026-11-06 17:20:48,512 IRRA.train INFO: Validation Results - Epoch: 48
+2026-11-06 17:20:48,518 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:20:48,519 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:20:54,615 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 32.420 | 57.763 | 67.808 | 23.585 | 8.145 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:20:54,615 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:20:54,615 IRRA.multimodal_eval INFO: MM:    R1=32.420, R5=57.763, R10=67.808, mAP=23.585, mINP=8.145
+2026-11-06 17:21:50,547 IRRA.train INFO: Epoch[49] Iteration[100/169], loss: 4.5573, sdm_loss: 0.3669, itc_loss: 0.0036, id_loss: 4.0797, view_loss: 0.0894, ortho_loss: 0.0176, img_acc: 0.6966, txt_acc: 0.7312, Base Lr: 5.65e-07
+2026-11-06 17:22:28,104 IRRA.train INFO: Epoch 49 done. Time per batch: 0.551[s] Speed: 58.1[samples/s]
+2026-11-06 17:22:28,104 IRRA.train INFO: Validation Results - Epoch: 49
+2026-11-06 17:22:28,107 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:22:28,107 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:22:34,112 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 32.877 | 57.763 | 68.265 | 23.596 | 8.139 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:22:34,112 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:22:34,112 IRRA.multimodal_eval INFO: MM:    R1=32.877, R5=57.763, R10=68.265, mAP=23.596, mINP=8.139
+2026-11-06 17:23:30,118 IRRA.train INFO: Epoch[50] Iteration[100/169], loss: 4.5251, sdm_loss: 0.3440, itc_loss: 0.0024, id_loss: 4.0714, view_loss: 0.0897, ortho_loss: 0.0174, img_acc: 0.7028, txt_acc: 0.7444, Base Lr: 4.77e-07
+2026-11-06 17:24:07,954 IRRA.train INFO: Epoch 50 done. Time per batch: 0.553[s] Speed: 57.9[samples/s]
+2026-11-06 17:24:07,955 IRRA.train INFO: Validation Results - Epoch: 50
+2026-11-06 17:24:07,956 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:24:07,956 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:24:13,838 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 58.676 | 68.265 | 23.628 | 8.094 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:24:13,838 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:24:13,838 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=58.676, R10=68.265, mAP=23.628, mINP=8.094
+2026-11-06 17:25:09,180 IRRA.train INFO: Epoch[51] Iteration[100/169], loss: 4.4901, sdm_loss: 0.3151, itc_loss: 0.0031, id_loss: 4.0647, view_loss: 0.0897, ortho_loss: 0.0176, img_acc: 0.7050, txt_acc: 0.7378, Base Lr: 3.97e-07
+2026-11-06 17:25:46,173 IRRA.train INFO: Epoch 51 done. Time per batch: 0.544[s] Speed: 58.8[samples/s]
+2026-11-06 17:25:46,174 IRRA.train INFO: Validation Results - Epoch: 51
+2026-11-06 17:25:46,177 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:25:46,177 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:25:52,173 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.721 | 23.654 | 8.045 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:25:52,175 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:25:52,175 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.721, mAP=23.654, mINP=8.045
+2026-11-06 17:26:49,120 IRRA.train INFO: Epoch[52] Iteration[100/169], loss: 4.5042, sdm_loss: 0.3179, itc_loss: 0.0032, id_loss: 4.0760, view_loss: 0.0897, ortho_loss: 0.0174, img_acc: 0.7037, txt_acc: 0.7253, Base Lr: 3.23e-07
+2026-11-06 17:27:26,123 IRRA.train INFO: Epoch 52 done. Time per batch: 0.554[s] Speed: 57.8[samples/s]
+2026-11-06 17:27:26,123 IRRA.train INFO: Validation Results - Epoch: 52
+2026-11-06 17:27:26,124 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:27:26,124 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:27:32,100 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 32.877 | 57.991 | 68.721 | 23.642 | 8.026 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:27:32,100 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:27:32,100 IRRA.multimodal_eval INFO: MM:    R1=32.877, R5=57.991, R10=68.721, mAP=23.642, mINP=8.026
+2026-11-06 17:28:29,856 IRRA.train INFO: Epoch[53] Iteration[100/169], loss: 4.5968, sdm_loss: 0.4078, itc_loss: 0.0027, id_loss: 4.0800, view_loss: 0.0888, ortho_loss: 0.0175, img_acc: 0.6962, txt_acc: 0.7256, Base Lr: 2.57e-07
+2026-11-06 17:29:06,941 IRRA.train INFO: Epoch 53 done. Time per batch: 0.559[s] Speed: 57.3[samples/s]
+2026-11-06 17:29:06,942 IRRA.train INFO: Validation Results - Epoch: 53
+2026-11-06 17:29:06,944 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:29:06,944 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:29:13,063 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 58.219 | 68.950 | 23.660 | 8.036 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:29:13,064 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:29:13,064 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=58.219, R10=68.950, mAP=23.660, mINP=8.036
+2026-11-06 17:30:10,675 IRRA.train INFO: Epoch[54] Iteration[100/169], loss: 4.6137, sdm_loss: 0.4225, itc_loss: 0.0027, id_loss: 4.0806, view_loss: 0.0904, ortho_loss: 0.0175, img_acc: 0.6909, txt_acc: 0.7241, Base Lr: 1.97e-07
+2026-11-06 17:30:48,556 IRRA.train INFO: Epoch 54 done. Time per batch: 0.563[s] Speed: 56.9[samples/s]
+2026-11-06 17:30:48,556 IRRA.train INFO: Validation Results - Epoch: 54
+2026-11-06 17:30:48,558 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:30:48,558 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:30:54,820 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.493 | 23.667 | 8.027 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:30:54,820 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:30:54,820 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.493, mAP=23.667, mINP=8.027
+2026-11-06 17:31:53,415 IRRA.train INFO: Epoch[55] Iteration[100/169], loss: 4.5299, sdm_loss: 0.3413, itc_loss: 0.0026, id_loss: 4.0779, view_loss: 0.0904, ortho_loss: 0.0176, img_acc: 0.7012, txt_acc: 0.7322, Base Lr: 1.45e-07
+2026-11-06 17:32:34,070 IRRA.train INFO: Epoch 55 done. Time per batch: 0.584[s] Speed: 54.7[samples/s]
+2026-11-06 17:32:34,071 IRRA.train INFO: Validation Results - Epoch: 55
+2026-11-06 17:32:34,074 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:32:34,075 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:32:40,282 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 58.219 | 68.493 | 23.661 | 8.041 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:32:40,283 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:32:40,283 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=58.219, R10=68.493, mAP=23.661, mINP=8.041
+2026-11-06 17:33:40,313 IRRA.train INFO: Epoch[56] Iteration[100/169], loss: 4.5448, sdm_loss: 0.3642, itc_loss: 0.0021, id_loss: 4.0705, view_loss: 0.0904, ortho_loss: 0.0176, img_acc: 0.7000, txt_acc: 0.7322, Base Lr: 1.01e-07
+2026-11-06 17:34:19,660 IRRA.train INFO: Epoch 56 done. Time per batch: 0.586[s] Speed: 54.6[samples/s]
+2026-11-06 17:34:19,660 IRRA.train INFO: Validation Results - Epoch: 56
+2026-11-06 17:34:19,662 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:34:19,662 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:34:26,217 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.493 | 23.669 | 8.040 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:34:26,217 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:34:26,218 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.493, mAP=23.669, mINP=8.040
+2026-11-06 17:35:26,574 IRRA.train INFO: Epoch[57] Iteration[100/169], loss: 4.4805, sdm_loss: 0.2920, itc_loss: 0.0023, id_loss: 4.0784, view_loss: 0.0902, ortho_loss: 0.0176, img_acc: 0.6969, txt_acc: 0.7325, Base Lr: 6.50e-08
+2026-11-06 17:36:06,603 IRRA.train INFO: Epoch 57 done. Time per batch: 0.592[s] Speed: 54.1[samples/s]
+2026-11-06 17:36:06,603 IRRA.train INFO: Validation Results - Epoch: 57
+2026-11-06 17:36:06,605 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:36:06,605 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:36:12,474 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.493 | 23.659 | 8.039 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:36:12,474 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:36:12,474 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.493, mAP=23.659, mINP=8.039
+2026-11-06 17:37:14,048 IRRA.train INFO: Epoch[58] Iteration[100/169], loss: 4.5271, sdm_loss: 0.3486, itc_loss: 0.0027, id_loss: 4.0683, view_loss: 0.0899, ortho_loss: 0.0175, img_acc: 0.7084, txt_acc: 0.7309, Base Lr: 3.66e-08
+2026-11-06 17:37:53,533 IRRA.train INFO: Epoch 58 done. Time per batch: 0.596[s] Speed: 53.7[samples/s]
+2026-11-06 17:37:53,533 IRRA.train INFO: Validation Results - Epoch: 58
+2026-11-06 17:37:53,534 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:37:53,535 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:37:59,849 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.333 | 58.447 | 68.493 | 23.678 | 8.042 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:37:59,849 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:37:59,849 IRRA.multimodal_eval INFO: MM:    R1=33.333, R5=58.447, R10=68.493, mAP=23.678, mINP=8.042
+2026-11-06 17:38:59,801 IRRA.train INFO: Epoch[59] Iteration[100/169], loss: 4.5481, sdm_loss: 0.3584, itc_loss: 0.0037, id_loss: 4.0785, view_loss: 0.0900, ortho_loss: 0.0174, img_acc: 0.6912, txt_acc: 0.7234, Base Lr: 1.63e-08
+2026-11-06 17:39:38,303 IRRA.train INFO: Epoch 59 done. Time per batch: 0.580[s] Speed: 55.1[samples/s]
+2026-11-06 17:39:38,303 IRRA.train INFO: Validation Results - Epoch: 59
+2026-11-06 17:39:38,305 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:39:38,306 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:39:44,881 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.721 | 23.661 | 8.043 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:39:44,882 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:39:44,882 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.721, mAP=23.661, mINP=8.043
+2026-11-06 17:40:44,043 IRRA.train INFO: Epoch[60] Iteration[100/169], loss: 4.4553, sdm_loss: 0.2664, itc_loss: 0.0019, id_loss: 4.0791, view_loss: 0.0902, ortho_loss: 0.0176, img_acc: 0.7041, txt_acc: 0.7237, Base Lr: 4.08e-09
+2026-11-06 17:41:22,579 IRRA.train INFO: Epoch 60 done. Time per batch: 0.576[s] Speed: 55.6[samples/s]
+2026-11-06 17:41:22,579 IRRA.train INFO: Validation Results - Epoch: 60
+2026-11-06 17:41:22,583 IRRA.multimodal_eval INFO: Starting multimodal evaluation...
+2026-11-06 17:41:22,583 IRRA.eval INFO: Evaluating Multimodal modality...
+2026-11-06 17:41:28,439 IRRA.eval INFO: 
++------+--------+--------+--------+--------+-------+
+| task |   R1   |   R5   |  R10   |  mAP   |  mINP |
++------+--------+--------+--------+--------+-------+
+| t2i  | 33.105 | 58.447 | 68.721 | 23.649 | 8.043 |
++------+--------+--------+--------+--------+-------+
+2026-11-06 17:41:28,439 IRRA.multimodal_eval INFO: Multimodal Evaluation Results:
+2026-11-06 17:41:28,439 IRRA.multimodal_eval INFO: MM:    R1=33.105, R5=58.447, R10=68.721, mAP=23.649, mINP=8.043
+2026-11-06 17:41:28,805 IRRA.train INFO: Training completed! Best avg R1: 35.388 at epoch 42
+2026-11-06 17:41:28,805 IRRA.train INFO: Best model results:
+2026-11-06 17:41:28,805 IRRA.train INFO: MM:  R1=35.388, R5=57.306, R10=69.406, mAP=23.733, mINP=8.221
